@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Note from "./Note";
 import "./App.scss";
 
@@ -24,6 +24,16 @@ function App() {
       setNewNote("");
     }
   }
+
+  const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
+
+  useEffect(() => {
+    if (prefersDarkScheme.matches) {
+      setTheme("dark");
+    } else {
+      setTheme("light");
+    }
+  }, [prefersDarkScheme.matches]);
 
   return (
     <div className={`app ${theme}`}>
