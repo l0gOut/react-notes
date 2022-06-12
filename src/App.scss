@@ -1,0 +1,290 @@
+$black: #282a36;
+$purple: #a15687;
+$blue: #79c6d8;
+$gold: #b38658;
+
+button {
+  cursor: pointer;
+}
+
+.app {
+  transition: 200ms background-color;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+
+  min-height: 100vh;
+
+  .app-body {
+    width: 100%;
+    min-width: 275px;
+    max-width: 1000px;
+
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-direction: row;
+      padding: 0 10px;
+      margin: 20px 0;
+
+      h1 {
+        transition: 200ms color;
+        margin: 0;
+        height: 44px;
+      }
+
+      .container-theme {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        button {
+          outline: none;
+          width: 125px;
+          height: 44px;
+          border: none;
+          font-size: 16px;
+          font-weight: bold;
+          background-color: transparent;
+          transition: 200ms color;
+        }
+      }
+    }
+
+    > input[name="search"] {
+      width: calc(100% - 5px);
+      border-width: 0 0 2px 0;
+      border-style: solid;
+      font-size: 24px;
+      outline: none;
+      padding: 0 0 0 5px;
+      background-color: transparent;
+      transition: 200ms color, 200ms border-color;
+    }
+
+    .notes {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      column-gap: 5px;
+      row-gap: 5px;
+      margin: 5px 5px;
+
+      .note {
+        height: 200px;
+        position: relative;
+        transition: 200ms color, 200ms border-color;
+
+        p {
+          padding: 0 5px;
+          margin: 0;
+          text-align: justify;
+          overflow-y: auto;
+          height: 160px;
+          word-wrap: break-word;
+          font-size: 24px;
+
+          &::-webkit-scrollbar {
+            width: 6px;
+          }
+
+          &::-webkit-scrollbar-thumb {
+            border-radius: 15px;
+            border-width: 1px;
+            border-color: transparent;
+            border-style: solid;
+            background-clip: padding-box;
+            transition: 200ms background-color;
+          }
+        }
+
+        .completed {
+          position: absolute;
+          bottom: 0;
+          width: 100%;
+          border: none;
+          outline: none;
+          color: $gold;
+          height: 40px;
+          font-size: 24px;
+          transition: 200ms background-color;
+        }
+
+        .delete {
+          outline: none;
+          background-color: transparent;
+          margin: 0 -5px 0 0;
+          padding: 0;
+          color: darkred;
+          font-size: 28px;
+          width: 28px;
+          height: 28px;
+          transition: 200ms color, 200ms border-color;
+          float: right;
+          border: none;
+
+          &:hover {
+            color: red;
+          }
+        }
+      }
+
+      .note.create {
+        textarea {
+          border: none;
+          resize: none;
+          width: calc(100% - 5px);
+          outline: none;
+          padding: 0;
+          margin: 0;
+          background-color: transparent;
+          transition: 200ms color;
+          padding-left: 5px;
+          font-size: 24px;
+          height: 156px;
+
+          &::-webkit-scrollbar {
+            width: 6px;
+          }
+
+          &::-webkit-scrollbar-thumb {
+            border-radius: 15px;
+            border-width: 1px;
+            border-color: transparent;
+            border-style: solid;
+            background-clip: padding-box;
+            transition: 200ms background-color;
+          }
+        }
+
+        button {
+          height: 40px;
+          width: 100%;
+          outline: none;
+          border: none;
+          padding: 0;
+          margin: 0;
+          color: $gold;
+          transition: 200ms background-color;
+          font-size: 24px;
+        }
+      }
+    }
+  }
+}
+
+.light {
+  .header {
+    h1 {
+      color: $black;
+    }
+
+    .container-theme {
+      button {
+        color: $black;
+      }
+    }
+  }
+
+  input[name="search"] {
+    color: $black;
+    border-color: $black;
+
+    &::placeholder {
+      color: $black;
+    }
+  }
+
+  .note {
+    color: $black;
+    border: 2px solid $black;
+
+    p {
+      &::-webkit-scrollbar-thumb {
+        background-color: $black;
+      }
+    }
+
+    .completed {
+      background-color: $black;
+    }
+  }
+
+  .note.create {
+    textarea {
+      color: $black;
+
+      &::placeholder {
+        color: $black;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: $black;
+      }
+    }
+
+    button {
+      background-color: $black;
+    }
+  }
+}
+
+.dark {
+  background-color: $black;
+
+  .header {
+    h1 {
+      color: $purple;
+    }
+
+    .container-theme {
+      button {
+        color: $purple;
+      }
+    }
+  }
+
+  input[name="search"] {
+    color: $purple;
+    border-color: $blue;
+
+    &::placeholder {
+      color: $purple;
+    }
+  }
+
+  .note {
+    border: 2px solid $blue;
+    color: $purple;
+
+    p {
+      &::-webkit-scrollbar-thumb {
+        background-color: $purple;
+      }
+    }
+
+    .completed {
+      background-color: $blue;
+    }
+  }
+  .note.create {
+    textarea {
+      color: $purple;
+
+      &::placeholder {
+        color: $purple;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: $purple;
+      }
+    }
+
+    button {
+      background-color: $blue;
+    }
+  }
+}
