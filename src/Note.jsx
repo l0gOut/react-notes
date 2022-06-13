@@ -1,11 +1,10 @@
 import { useState } from "react";
-
-function Note({ title, success, index, deleteNote }) {
-  const [currentSuccess, setSuccess] = useState(success);
+function Note({ title, success, index, deleteNote, updateNote }) {
+  const [renderSuccess, setRenderSuccess] = useState(success);
 
   return (
     // Если заметка выполнена то она зачеркивается
-    <div className={`note ${currentSuccess ? "ready" : ""}`}>
+    <div className={`note ${renderSuccess ? "ready" : ""}`}>
       <p>
         <button className="delete" onClick={() => deleteNote(index)}>
           &times;
@@ -15,11 +14,14 @@ function Note({ title, success, index, deleteNote }) {
       <button
         className="completed"
         // Изменение выполнения заметки
-        onClick={() => setSuccess(!currentSuccess)}
+        onClick={() => {
+          updateNote(index);
+          setRenderSuccess(!renderSuccess);
+        }}
       >
         {
           // Если заметка выполнена то меняется название кнопки на "Отменить"
-          currentSuccess ? "Отменить" : "Выполнить"
+          renderSuccess ? "Отменить" : "Выполнить"
         }
       </button>
     </div>

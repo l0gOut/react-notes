@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Note from "./Note";
+import Note from "./Note.jsx";
 import "./App.scss";
 
 function App() {
@@ -45,6 +45,17 @@ function App() {
     }
   }
 
+  function updateNote(index) {
+    const newNotesList = notesList;
+    newNotesList.splice(index, 1, {
+      title: notesList[index].title,
+      success: !notesList[index].success,
+    });
+
+    localStorage.setItem("notes", JSON.stringify(newNotesList));
+    setNotesList(newNotesList);
+  }
+
   return (
     <div className={`app ${theme}`}>
       <div className="app-body">
@@ -80,6 +91,7 @@ function App() {
                     title={value.title}
                     success={value.success}
                     deleteNote={deleteNote}
+                    updateNote={updateNote}
                     index={index}
                     key={index}
                   />
@@ -93,6 +105,7 @@ function App() {
                   title={value.title}
                   success={value.success}
                   deleteNote={deleteNote}
+                  updateNote={updateNote}
                   index={index}
                   key={index}
                 />

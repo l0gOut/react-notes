@@ -172,6 +172,16 @@ button {
           font-size: 24px;
         }
       }
+
+      .note.ready {
+        text-decoration: line-through;
+        color: darkred !important;
+        border-color: darkred !important;
+
+        .completed {
+          background-color: darkred !important;
+        }
+      }
     }
   }
 }
