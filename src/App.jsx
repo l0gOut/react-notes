@@ -5,35 +5,45 @@ import "./App.scss";
 function App() {
   const [theme, setTheme] = useState("light");
   const [newNote, setNewNote] = useState("");
-  const [notesList, setNotesList] = useState([
-    {
-      title: "Базовая заметка!",
-      success: false,
-    },
-  ]);
+  const [notesList, setNotesList] = useState([]);
   const [search, setSearch] = useState("");
+
+  useEffect(() => {
+    // Определение заметок
+    const notes = JSON.parse(localStorage.getItem("notes"));
+
+    if (notes) setNotesList(notes);
+    else setNotesList([{ title: "Базовая заметка", success: false }]);
+
+    // Определение темы
+    const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
+    const storageTheme = localStorage.getItem("theme");
+
+    if (!storageTheme) {
+      if (prefersDarkScheme.matches) setTheme("dark");
+    } else setTheme(storageTheme);
+  }, []);
 
   function deleteNote(index) {
     notesList.splice(index, 1);
-    setNotesList([...notesList]);
+
+    const newNotesList = [...notesList];
+
+    if (newNotesList.length === 0) localStorage.removeItem("notes");
+    else localStorage.setItem("notes", JSON.stringify(newNotesList));
+
+    setNotesList(newNotesList);
   }
 
   function addNote() {
     if (newNote) {
-      setNotesList([...notesList, { title: newNote, success: false }]);
+      const newNotesList = [...notesList, { title: newNote, success: false }];
+
+      localStorage.setItem("notes", JSON.stringify(newNotesList));
+      setNotesList(newNotesList);
       setNewNote("");
     }
   }
-
-  const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
-
-  useEffect(() => {
-    if (prefersDarkScheme.matches) {
-      setTheme("dark");
-    } else {
-      setTheme("light");
-    }
-  }, [prefersDarkScheme.matches]);
 
   return (
     <div className={`app ${theme}`}>
@@ -43,7 +53,11 @@ function App() {
           <div className="container-theme">
             <button
               // Изменение значения темы при клике на значок
-              onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+              onClick={() => {
+                const nowTheme = theme === "light" ? "dark" : "light";
+                localStorage.setItem("theme", nowTheme);
+                setTheme(nowTheme);
+              }}
               name="theme"
             >
               {theme === "light" ? "Тёмная тема" : "Светлая тема"}
