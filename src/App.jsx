@@ -7,6 +7,7 @@ function App() {
   const [newNote, setNewNote] = useState("");
   const [notesList, setNotesList] = useState([]);
   const [search, setSearch] = useState("");
+  console.log(navigator.geolocation.getCurrentPosition());
 
   useEffect(() => {
     // Определение заметок
